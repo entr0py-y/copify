@@ -1,6 +1,5 @@
 export const dynamic = 'force-dynamic';
-import { SendSection } from '@/components/SendSection';
-import { ReceiveSection } from '@/components/ReceiveSection';
+import { HomeClient } from '@/components/HomeClient';
 
 export default function Home() {
   return (
@@ -11,7 +10,8 @@ export default function Home() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: '8rem 0 0',
+          // Increased top padding to prevent lamp overlap on mobile
+          padding: '12rem 0 0',
         }}
       >
         {/* Hero */}
@@ -26,19 +26,8 @@ export default function Home() {
           </h2>
         </div>
 
-        {/* Cards */}
-        <div
-          className="container animate-fade-in delay-300"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '1.5rem',
-            alignItems: 'stretch',
-          }}
-        >
-          <SendSection />
-          <ReceiveSection />
-        </div>
+        {/* Dynamic Responsive Layout */}
+        <HomeClient />
       </main>
 
       <footer

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef } from 'react';
 
-export function ReceiveSection() {
+export function ReceiveSection({ minimalMobile = false }: { minimalMobile?: boolean }) {
   const [code, setCode] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [resultText, setResultText] = useState('');
@@ -54,20 +54,25 @@ export function ReceiveSection() {
 
   return (
     <div
-      className="glass-panel"
-      style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+      className={minimalMobile ? '' : 'glass-panel'}
+      style={minimalMobile 
+        ? { display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' } 
+        : { padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }
+      }
     >
-      {/* Label */}
-      <p
-        style={{
-          fontSize: '0.65rem',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          color: 'var(--accent)',
-        }}
-      >
-        Receive Text
-      </p>
+      {/* Label - Hide on minimal mobile since it's redundant */}
+      {!minimalMobile && (
+        <p
+          style={{
+            fontSize: '0.65rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--accent)',
+          }}
+        >
+          Receive Text
+        </p>
+      )}
 
       {status === 'idle' || status === 'loading' || status === 'error' ? (
         <form

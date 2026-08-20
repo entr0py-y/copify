@@ -29,13 +29,19 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  overflow-y: hidden;
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+}
+
+/* Lock scrolling on desktop ONLY to preserve existing behavior */
+@media (min-width: 768px) {
+  html, body {
+    overflow-y: hidden;
+  }
 }
 
 /* ── Atmospheric background ── */
@@ -223,3 +229,66 @@ button {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--panel-border); border-radius: 2px; }
+
+/* ── Mobile Redesign Utility Classes ── */
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+.mobile-nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-nav-btn:hover, .mobile-nav-btn:active {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.mobile-nav-btn::after {
+  content: "→";
+  opacity: 0.4;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-nav-btn:hover::after, .mobile-nav-btn:active::after {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.mobile-back-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent-dim);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobile-back-btn:hover, .mobile-back-btn:active {
+  color: var(--accent);
+}

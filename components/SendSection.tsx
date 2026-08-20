@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRealtimeTransfer } from '@/hooks/useRealtimeTransfer';
 
-export function SendSection() {
+export function SendSection({ minimalMobile = false }: { minimalMobile?: boolean }) {
   const [content, setContent] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'generated' | 'consumed' | 'error'>('idle');
   const [code, setCode] = useState<string | null>(null);
@@ -43,20 +43,25 @@ export function SendSection() {
 
   return (
     <div
-      className="glass-panel"
-      style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+      className={minimalMobile ? '' : 'glass-panel'}
+      style={minimalMobile 
+        ? { display: 'flex', flexDirection: 'column', gap: '1.5rem', width: '100%' } 
+        : { padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }
+      }
     >
-      {/* Label */}
-      <p
-        style={{
-          fontSize: '0.65rem',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          color: 'var(--accent)',
-        }}
-      >
-        Send Text
-      </p>
+      {/* Label - Hide on minimal mobile since it's redundant */}
+      {!minimalMobile && (
+        <p
+          style={{
+            fontSize: '0.65rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--accent)',
+          }}
+        >
+          Send Text
+        </p>
+      )}
 
       {status === 'idle' || status === 'loading' || status === 'error' ? (
         <>
