@@ -34,7 +34,6 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     dragState.current.currentX = 0;
     lastVibrateX.current = 0;
     
-    // Subtract 56 (the handle width) so it stops exactly at the edge
     dragState.current.trackWidth = trackRef.current.getBoundingClientRect().width - 56;
     
     handleRef.current.style.transition = 'none';
@@ -54,15 +53,16 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     
     dragState.current.currentX = clampedX;
     
-    // Discrete haptic feedback ("kat kat kat")
+    // Increased haptic feedback intensity
     if (Math.abs(clampedX - lastVibrateX.current) > 15) {
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
-        navigator.vibrate(3); // short discrete tick
+        navigator.vibrate(15);
       }
       lastVibrateX.current = clampedX;
     }
     
-    handleRef.current.style.transform = `translateX(${clampedX}px)`;
+    const newWidth = 56 + Math.abs(clampedX);
+    handleRef.current.style.width = `${newWidth}px`;
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
@@ -77,24 +77,24 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     if (progress > 0.8) {
       setIsCompleted(true);
       if (typeof navigator !== 'undefined' && navigator.vibrate) {
-        navigator.vibrate(10); // final snap vibration
+        navigator.vibrate(30);
       }
-      handleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
-      handleRef.current.style.transform = `translateX(${direction === 'ltr' ? dragState.current.trackWidth : -dragState.current.trackWidth}px)`;
+      handleRef.current.style.transition = 'width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      handleRef.current.style.width = '100%';
       
       setTimeout(() => {
         onComplete();
         setTimeout(() => {
             if (handleRef.current) {
                 handleRef.current.style.transition = 'none';
-                handleRef.current.style.transform = `translateX(0px)`;
+                handleRef.current.style.width = '56px';
                 setIsCompleted(false);
             }
         }, 300);
       }, 300);
     } else {
-      handleRef.current.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-      handleRef.current.style.transform = `translateX(0px)`;
+      handleRef.current.style.transition = 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      handleRef.current.style.width = '56px';
       dragState.current.currentX = 0;
     }
   };
@@ -108,14 +108,13 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         maxWidth: '320px',
         height: '56px',
         borderRadius: '28px',
-        background: 'rgba(255, 255, 255, 0.03)', // Very faint, almost transparent
-        border: '1px solid rgba(255, 255, 255, 0.02)',
+        background: 'rgba(255, 255, 255, 0.04)', 
+        border: '1px solid rgba(255, 255, 255, 0.05)',
         display: 'flex',
         alignItems: 'center',
         touchAction: 'none'
       }}
     >
-      {/* Background Text */}
       <div style={{
         position: 'absolute',
         width: '100%',
@@ -131,7 +130,6 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         {label}
       </div>
 
-      {/* Draggable Circular Handle */}
       <div
         ref={handleRef}
         onPointerDown={handlePointerDown}
@@ -144,7 +142,7 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
           right: direction === 'rtl' ? 0 : 'auto',
           width: '56px',
           height: '56px',
-          borderRadius: '50%',
+          borderRadius: '28px',
           background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
           boxShadow: isDragging 
             ? '0 0 25px rgba(71, 255, 212, 0.6)' 
@@ -152,7 +150,6 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
           cursor: 'grab',
           touchAction: 'none',
           zIndex: 2,
-          transform: 'translateX(0px)',
         }}
       />
     </div>
