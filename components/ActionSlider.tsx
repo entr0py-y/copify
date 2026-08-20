@@ -31,8 +31,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     dragState.current.startX = e.clientX;
     dragState.current.currentX = 0;
     
-    // Subtract 48 (the handle width) so it stops exactly at the edge
-    dragState.current.trackWidth = trackRef.current.getBoundingClientRect().width - 48;
+    // Track width available for dragging is container width minus the base thumb width (56px)
+    dragState.current.trackWidth = trackRef.current.getBoundingClientRect().width - 56;
     
     handleRef.current.style.transition = 'none';
   };
@@ -50,7 +50,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     }
     
     dragState.current.currentX = clampedX;
-    handleRef.current.style.transform = `translateX(${clampedX}px)`;
+    const newWidth = 56 + Math.abs(clampedX);
+    handleRef.current.style.width = `${newWidth}px`;
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
@@ -64,8 +65,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     
     if (progress > 0.8) {
       setIsCompleted(true);
-      handleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
-      handleRef.current.style.transform = `translateX(${direction === 'ltr' ? dragState.current.trackWidth : -dragState.current.trackWidth}px)`;
+      handleRef.current.style.transition = 'width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      handleRef.current.style.width = '100%';
       
       setTimeout(() => {
         onComplete();
@@ -73,114 +74,73 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         setTimeout(() => {
             if (handleRef.current) {
                 handleRef.current.style.transition = 'none';
-                handleRef.current.style.transform = `translateX(0px)`;
+                handleRef.current.style.width = '56px';
                 setIsCompleted(false);
             }
         }, 300);
       }, 300);
     } else {
-      handleRef.current.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-      handleRef.current.style.transform = `translateX(0px)`;
+      handleRef.current.style.transition = 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      handleRef.current.style.width = '56px';
       dragState.current.currentX = 0;
     }
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', width: '100%', maxWidth: '320px' }}>
-      
-      {direction === 'rtl' && (
-        <span 
-          className="text-mono" 
-          style={{ 
-            fontSize: '0.75rem', 
-            letterSpacing: '0.1em', 
-            color: 'var(--accent)', 
-            opacity: isDragging ? 1 : 0.7, 
-            transition: 'opacity 0.2s',
-            flexShrink: 0
-          }}
-        >
-          {label}
-        </span>
-      )}
-
-      {/* Track Container */}
-      <div 
-        ref={trackRef}
-        style={{ 
-          flex: 1, 
-          height: '48px',
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          touchAction: 'none'
-        }}
-      >
-        {/* Visible 1px Track */}
-        <div 
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            height: '1px',
-            background: isDragging ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.08)',
-            transition: 'background 0.3s ease',
-            pointerEvents: 'none'
-          }}
-        />
-        
-        {/* Handle Wrapper */}
-        <div
-          ref={handleRef}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
-          style={{
-            position: 'absolute',
-            left: direction === 'ltr' ? 0 : 'auto',
-            right: direction === 'rtl' ? 0 : 'auto',
-            width: '48px',
-            height: '48px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'grab',
-            touchAction: 'none',
-            zIndex: 10,
-            transform: 'translateX(0px)',
-          }}
-        >
-          {/* Visible Bead */}
-          <div 
-            style={{
-              width: '10px',
-              height: '10px',
-              borderRadius: '50%',
-              background: isDragging ? '#ffffff' : '#b3b3b3',
-              transition: 'background 0.2s ease, transform 0.2s ease',
-              transform: isDragging ? 'scale(1.2)' : 'scale(1)',
-              boxShadow: isDragging ? '0 0 8px rgba(255,255,255,0.3)' : 'none',
-            }}
-          />
-        </div>
+    <div 
+      ref={trackRef}
+      style={{ 
+        position: 'relative',
+        width: '100%', 
+        maxWidth: '320px',
+        height: '56px',
+        borderRadius: '28px',
+        background: 'rgba(255, 255, 255, 0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.05)',
+        display: 'flex',
+        alignItems: 'center',
+        touchAction: 'none'
+      }}
+    >
+      {/* Background Text */}
+      <div style={{
+        position: 'absolute',
+        width: '100%',
+        textAlign: direction === 'ltr' ? 'right' : 'left',
+        padding: direction === 'ltr' ? '0 24px 0 0' : '0 0 0 24px',
+        color: 'rgba(255, 255, 255, 0.7)',
+        fontFamily: 'var(--font-sans)',
+        fontSize: '1rem',
+        fontWeight: 500,
+        pointerEvents: 'none',
+        zIndex: 1,
+      }}>
+        {label}
       </div>
 
-      {direction === 'ltr' && (
-        <span 
-          className="text-mono" 
-          style={{ 
-            fontSize: '0.75rem', 
-            letterSpacing: '0.1em', 
-            color: 'var(--accent)', 
-            opacity: isDragging ? 1 : 0.7, 
-            transition: 'opacity 0.2s',
-            flexShrink: 0
-          }}
-        >
-          {label}
-        </span>
-      )}
+      {/* Draggable Fill Handle */}
+      <div
+        ref={handleRef}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        style={{
+          position: 'absolute',
+          left: direction === 'ltr' ? 0 : 'auto',
+          right: direction === 'rtl' ? 0 : 'auto',
+          width: '56px',
+          height: '56px',
+          borderRadius: '28px',
+          background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
+          boxShadow: isDragging 
+            ? '0 0 25px rgba(71, 255, 212, 0.6)' 
+            : '0 0 15px rgba(71, 255, 212, 0.3)',
+          cursor: 'grab',
+          touchAction: 'none',
+          zIndex: 2,
+        }}
+      />
     </div>
   );
 }
