@@ -12,6 +12,20 @@ export function HomeClient() {
       className="container animate-fade-in delay-200"
       style={{ textAlign: 'center', marginBottom: '3rem' }}
     >
+      <h1 
+        className="text-mono" 
+        style={{ 
+          fontSize: '1rem', 
+          letterSpacing: '0.2em', 
+          marginBottom: '1.5rem',
+          background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          textTransform: 'uppercase'
+        }}
+      >
+        Copify
+      </h1>
       <h2 className="heading-editorial">
         Move text between devices.
         <br />

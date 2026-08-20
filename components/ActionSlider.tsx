@@ -20,6 +20,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     trackWidth: 0,
     active: false,
   });
+  
+  const lastVibrateX = useRef(0);
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (isCompleted || !trackRef.current || !handleRef.current) return;
@@ -30,8 +32,9 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     dragState.current.active = true;
     dragState.current.startX = e.clientX;
     dragState.current.currentX = 0;
+    lastVibrateX.current = 0;
     
-    // Track width available for dragging is container width minus the base thumb width (56px)
+    // Subtract 56 (the handle width) so it stops exactly at the edge
     dragState.current.trackWidth = trackRef.current.getBoundingClientRect().width - 56;
     
     handleRef.current.style.transition = 'none';
@@ -50,8 +53,16 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     }
     
     dragState.current.currentX = clampedX;
-    const newWidth = 56 + Math.abs(clampedX);
-    handleRef.current.style.width = `${newWidth}px`;
+    
+    // Discrete haptic feedback ("kat kat kat")
+    if (Math.abs(clampedX - lastVibrateX.current) > 15) {
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        navigator.vibrate(3); // short discrete tick
+      }
+      lastVibrateX.current = clampedX;
+    }
+    
+    handleRef.current.style.transform = `translateX(${clampedX}px)`;
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
@@ -65,23 +76,25 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
     
     if (progress > 0.8) {
       setIsCompleted(true);
-      handleRef.current.style.transition = 'width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
-      handleRef.current.style.width = '100%';
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        navigator.vibrate(10); // final snap vibration
+      }
+      handleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      handleRef.current.style.transform = `translateX(${direction === 'ltr' ? dragState.current.trackWidth : -dragState.current.trackWidth}px)`;
       
       setTimeout(() => {
         onComplete();
-        // Reset state after a short delay so if user comes back it's ready
         setTimeout(() => {
             if (handleRef.current) {
                 handleRef.current.style.transition = 'none';
-                handleRef.current.style.width = '56px';
+                handleRef.current.style.transform = `translateX(0px)`;
                 setIsCompleted(false);
             }
         }, 300);
       }, 300);
     } else {
-      handleRef.current.style.transition = 'width 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-      handleRef.current.style.width = '56px';
+      handleRef.current.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      handleRef.current.style.transform = `translateX(0px)`;
       dragState.current.currentX = 0;
     }
   };
@@ -95,8 +108,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         maxWidth: '320px',
         height: '56px',
         borderRadius: '28px',
-        background: 'rgba(255, 255, 255, 0.1)',
-        border: '1px solid rgba(255, 255, 255, 0.05)',
+        background: 'rgba(255, 255, 255, 0.03)', // Very faint, almost transparent
+        border: '1px solid rgba(255, 255, 255, 0.02)',
         display: 'flex',
         alignItems: 'center',
         touchAction: 'none'
@@ -108,7 +121,7 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         width: '100%',
         textAlign: direction === 'ltr' ? 'right' : 'left',
         padding: direction === 'ltr' ? '0 24px 0 0' : '0 0 0 24px',
-        color: 'rgba(255, 255, 255, 0.7)',
+        color: 'rgba(255, 255, 255, 0.6)',
         fontFamily: 'var(--font-sans)',
         fontSize: '1rem',
         fontWeight: 500,
@@ -118,7 +131,7 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         {label}
       </div>
 
-      {/* Draggable Fill Handle */}
+      {/* Draggable Circular Handle */}
       <div
         ref={handleRef}
         onPointerDown={handlePointerDown}
@@ -131,7 +144,7 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
           right: direction === 'rtl' ? 0 : 'auto',
           width: '56px',
           height: '56px',
-          borderRadius: '28px',
+          borderRadius: '50%',
           background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
           boxShadow: isDragging 
             ? '0 0 25px rgba(71, 255, 212, 0.6)' 
@@ -139,6 +152,7 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
           cursor: 'grab',
           touchAction: 'none',
           zIndex: 2,
+          transform: 'translateX(0px)',
         }}
       />
     </div>
