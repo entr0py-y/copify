@@ -156,12 +156,6 @@ export function AmbientLight() {
               <stop offset="90%" stopColor="#050505" />
               <stop offset="100%" stopColor="#000000" />
             </radialGradient>
-            
-            <filter id="bulb-glow" x="-50%" y="-50%" width="200%" height="200%">
-              {/* Increased bulb blur deviation for stronger physical glow */}
-              <feGaussianBlur stdDeviation="6" result="blur" />
-              <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
           </defs>
 
           {/* Cord */}
@@ -189,10 +183,6 @@ export function AmbientLight() {
             stroke="rgba(255,255,255,0.04)" 
             strokeWidth="1" 
           />
-
-          {/* Bulb */}
-          <circle cx="100" cy="144" r="4.5" fill="#ffffff" filter="url(#bulb-glow)" />
-          <circle cx="100" cy="144" r="2" fill="#ffffff" />
         </svg>
       </div>
     </div>
