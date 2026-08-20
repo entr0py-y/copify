@@ -8,7 +8,7 @@ export function HomeClient() {
   const [mobileView, setMobileView] = useState<'home' | 'send' | 'receive'>('home');
 
   const LogoHeader = () => (
-    <div className="animate-fade-in" style={{ position: 'absolute', top: '2.5rem', width: '100%', textAlign: 'center', zIndex: 50 }}>
+    <div className="animate-fade-in" style={{ width: '100%', textAlign: 'center', zIndex: 50, marginBottom: '2rem' }}>
       <h1 
         className="text-mono" 
         style={{ 
