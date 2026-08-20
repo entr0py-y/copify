@@ -115,6 +115,21 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         touchAction: 'none'
       }}
     >
+      {/* 5 Dots Indicator */}
+      <div style={{
+        position: 'absolute',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '1rem',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <div key={i} style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255, 255, 255, 0.15)' }} />
+        ))}
+      </div>
+
       <div style={{
         position: 'absolute',
         width: '100%',

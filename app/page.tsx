@@ -10,8 +10,6 @@ export default function Home() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          paddingTop: '5rem',
-          paddingBottom: '2rem'
         }}
       >
         {/* Dynamic Responsive Layout */}

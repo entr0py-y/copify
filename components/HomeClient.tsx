@@ -10,17 +10,18 @@ export function HomeClient() {
   const LogoHeader = () => (
     <div className="animate-fade-in" style={{ width: '100%', textAlign: 'center', zIndex: 50, marginBottom: '2rem' }}>
       <h1 
-        className="text-mono" 
         style={{ 
-          fontSize: '1rem', 
-          letterSpacing: '0.2em', 
+          fontFamily: 'var(--font-caveat), cursive',
+          fontSize: '2rem', 
+          fontWeight: 700,
+          letterSpacing: '0.05em', 
           background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
-          textTransform: 'uppercase'
+          textTransform: 'lowercase'
         }}
       >
-        Copify
+        copify
       </h1>
     </div>
   );
