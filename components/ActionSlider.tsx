@@ -108,8 +108,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         maxWidth: '320px',
         height: '56px',
         borderRadius: '28px',
-        background: 'rgba(255, 255, 255, 0.04)', 
-        border: '1px solid rgba(255, 255, 255, 0.05)',
+        background: 'transparent', 
+        border: 'none',
         display: 'flex',
         alignItems: 'center',
         touchAction: 'none'
