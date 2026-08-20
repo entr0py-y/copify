@@ -109,7 +109,8 @@ export function ActionSlider({ direction, label, onComplete }: ActionSliderProps
         height: '56px',
         borderRadius: '28px',
         background: 'transparent', 
-        border: 'none',
+        border: '1px solid rgba(255, 255, 255, 0.15)',
+        boxShadow: '0 0 15px rgba(255, 255, 255, 0.05), inset 0 0 10px rgba(255, 255, 255, 0.02)',
         display: 'flex',
         alignItems: 'center',
         touchAction: 'none'
