@@ -89,13 +89,13 @@ export function HomeClient() {
             
             <ActionSlider 
               direction="ltr" 
-              label="Send Text" 
+              label="Send" 
               onComplete={() => setMobileView('send')} 
             />
             
             <ActionSlider 
               direction="rtl" 
-              label="Receive Text" 
+              label="Receive" 
               onComplete={() => setMobileView('receive')} 
             />
           </div>
