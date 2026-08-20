@@ -11,7 +11,7 @@ export function HomeClient() {
     <div className="animate-fade-in" style={{ width: '100%', textAlign: 'center', zIndex: 50, marginBottom: '2rem' }}>
       <h1 
         style={{ 
-          fontFamily: 'var(--font-pacifico), cursive',
+          fontFamily: 'var(--font-dancing-script), cursive',
           fontSize: '2.5rem', 
           fontWeight: 400,
           background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',

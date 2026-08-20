@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Mono, Pacifico } from "next/font/google";
+import { Inter, Space_Mono, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,10 +15,10 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-const pacifico = Pacifico({
+const dancingScript = Dancing_Script({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-pacifico",
+  variable: "--font-dancing-script",
   display: "swap",
 });
 
@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${pacifico.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${dancingScript.variable}`}>
       <body>
         <PwaRegistry />
         <div className="atmospheric-bg"></div>

@@ -116,9 +116,9 @@ export function ReceiveSection({ minimalMobile = false }: { minimalMobile?: bool
               className="text-mono"
               style={{
                 width: '100%',
-                maxWidth: '280px',
+                maxWidth: '320px',
                 fontSize: '2.2rem',
-                letterSpacing: '0.45em',
+                letterSpacing: '0.35em',
                 background: 'transparent',
                 border: 'none',
                 borderBottom: '1px solid var(--panel-border)',
