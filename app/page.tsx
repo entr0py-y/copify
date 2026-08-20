@@ -22,7 +22,7 @@ export default function Home() {
           <h2 className="heading-editorial">
             Move text between devices.
             <br />
-            <span style={{ color: 'var(--accent-dim)' }}>Instantly.</span>
+            <span style={{ color: 'var(--accent-dim)', textShadow: 'none' }}>Instantly.</span>
           </h2>
         </div>
 
