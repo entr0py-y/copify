@@ -31,7 +31,6 @@ export const viewport = {
 };
 
 import { PwaRegistry } from "@/components/PwaRegistry";
-import { AmbientLight } from "@/components/AmbientLight";
 
 export default function RootLayout({
   children,
@@ -41,7 +40,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable}`}>
       <body>
-        <AmbientLight />
         <PwaRegistry />
         <div className="atmospheric-bg"></div>
         {children}
