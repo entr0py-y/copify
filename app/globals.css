@@ -190,21 +190,10 @@ button {
   cursor: not-allowed;
 }
 
-/* ── Animations ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
+/* ── Animations Disabled ── */
 .animate-fade-in {
-  opacity: 0;
-  animation: fadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 1;
 }
-
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 600ms; }
-.delay-400 { animation-delay: 900ms; }
 
 /* ── Spinner ── */
 .spinner {
