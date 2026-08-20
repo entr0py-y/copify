@@ -7,20 +7,36 @@ import { ActionSlider } from './ActionSlider';
 export function HomeClient() {
   const [mobileView, setMobileView] = useState<'home' | 'send' | 'receive'>('home');
 
+  const Hero = () => (
+    <div
+      className="container animate-fade-in delay-200"
+      style={{ textAlign: 'center', marginBottom: '3rem' }}
+    >
+      <h2 className="heading-editorial">
+        Move text between devices.
+        <br />
+        <span style={{ color: 'var(--accent-dim)', textShadow: 'none' }}>Instantly.</span>
+      </h2>
+    </div>
+  );
+
   return (
     <>
       {/* ── DESKTOP LAYOUT (Unchanged) ── */}
-      <div
-        className="desktop-only container animate-fade-in delay-300"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '1.5rem',
-          alignItems: 'stretch',
-        }}
-      >
-        <SendSection />
-        <ReceiveSection />
+      <div className="desktop-only" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Hero />
+        <div
+          className="container animate-fade-in delay-300"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '1.5rem',
+            alignItems: 'stretch',
+          }}
+        >
+          <SendSection />
+          <ReceiveSection />
+        </div>
       </div>
 
       {/* ── MOBILE LAYOUT (New Redesign) ── */}
@@ -45,6 +61,8 @@ export function HomeClient() {
               maxWidth: '320px',
             }}
           >
+            <Hero />
+            
             <ActionSlider 
               direction="ltr" 
               label="Send Text" 

@@ -12,18 +12,6 @@ export default function Home() {
           justifyContent: 'center',
         }}
       >
-        {/* Hero */}
-        <div
-          className="container animate-fade-in delay-200"
-          style={{ textAlign: 'center', marginBottom: '3rem' }}
-        >
-          <h2 className="heading-editorial">
-            Move text between devices.
-            <br />
-            <span style={{ color: 'var(--accent-dim)', textShadow: 'none' }}>Instantly.</span>
-          </h2>
-        </div>
-
         {/* Dynamic Responsive Layout */}
         <HomeClient />
       </main>
