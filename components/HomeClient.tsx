@@ -11,14 +11,17 @@ export function HomeClient() {
     <div className="animate-fade-in" style={{ width: '100%', textAlign: 'center', zIndex: 50, marginBottom: '2rem' }}>
       <h1 
         style={{ 
-          fontFamily: 'var(--font-caveat), cursive',
-          fontSize: '2rem', 
-          fontWeight: 700,
-          letterSpacing: '0.05em', 
+          fontFamily: 'var(--font-pacifico), cursive',
+          fontSize: '2.5rem', 
+          fontWeight: 400,
           background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
-          textTransform: 'lowercase'
+          color: 'transparent',
+          textTransform: 'lowercase',
+          display: 'inline-block',
+          filter: 'drop-shadow(0 0 8px rgba(135, 255, 142, 0.5))',
+          margin: 0
         }}
       >
         copify

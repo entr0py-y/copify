@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Mono, Caveat } from "next/font/google";
+import { Inter, Space_Mono, Pacifico } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -15,9 +15,10 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-const caveat = Caveat({
+const pacifico = Pacifico({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-caveat",
+  variable: "--font-pacifico",
   display: "swap",
 });
 
@@ -44,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${caveat.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${pacifico.variable}`}>
       <body>
         <PwaRegistry />
         <div className="atmospheric-bg"></div>
