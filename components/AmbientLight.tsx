@@ -126,8 +126,8 @@ export function AmbientLight() {
             width: '40vw',
             height: '40vh',
             transform: 'translateX(-50%)',
-            // Ultra-soft local glow around the bulb
-            background: 'radial-gradient(circle at 50% 144px, rgba(255, 255, 255, 0.02) 0%, transparent 20%)',
+            // Ultra-soft local glow around the bulb - INCREASED GLOW
+            background: 'radial-gradient(circle at 50% 144px, rgba(255, 255, 255, 0.08) 0%, transparent 30%)',
           }}
         />
 
@@ -156,7 +156,8 @@ export function AmbientLight() {
             </radialGradient>
             
             <filter id="bulb-glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
+              {/* Increased bulb blur deviation for stronger physical glow */}
+              <feGaussianBlur stdDeviation="6" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
