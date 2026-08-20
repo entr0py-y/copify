@@ -24,7 +24,8 @@ export function AmbientLight() {
     const handleMouseMove = (e: MouseEvent) => {
       // Normalize cursor position: -1 (left) to 1 (right)
       const x = (e.clientX / window.innerWidth) * 2 - 1;
-      targetRot = x * maxRotation;
+      // Invert x so that moving left swings the bottom left
+      targetRot = -x * maxRotation;
     };
 
     const handleOrientation = (e: DeviceOrientationEvent) => {
@@ -33,7 +34,8 @@ export function AmbientLight() {
       if (gamma < -45) gamma = -45;
       
       const x = gamma / 45; 
-      targetRot = x * maxRotation;
+      // Invert x so tilting left swings the bottom left
+      targetRot = -x * maxRotation;
     };
 
     if (!isMobile) {
