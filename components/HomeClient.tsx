@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { SendSection } from './SendSection';
 import { ReceiveSection } from './ReceiveSection';
+import { ActionSlider } from './ActionSlider';
 
 export function HomeClient() {
   const [mobileView, setMobileView] = useState<'home' | 'send' | 'receive'>('home');
@@ -38,23 +39,23 @@ export function HomeClient() {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '1rem',
+              gap: '2.5rem', // Increased gap for the sliders
               alignItems: 'center',
               width: '100%',
+              maxWidth: '320px',
             }}
           >
-            <button
-              onClick={() => setMobileView('send')}
-              className="mobile-nav-btn text-mono"
-            >
-              Send Text
-            </button>
-            <button
-              onClick={() => setMobileView('receive')}
-              className="mobile-nav-btn text-mono"
-            >
-              Receive Text
-            </button>
+            <ActionSlider 
+              direction="ltr" 
+              label="Send Text" 
+              onComplete={() => setMobileView('send')} 
+            />
+            
+            <ActionSlider 
+              direction="rtl" 
+              label="Receive Text" 
+              onComplete={() => setMobileView('receive')} 
+            />
           </div>
         )}
 
