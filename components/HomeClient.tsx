@@ -7,17 +7,13 @@ import { ActionSlider } from './ActionSlider';
 export function HomeClient() {
   const [mobileView, setMobileView] = useState<'home' | 'send' | 'receive'>('home');
 
-  const Hero = () => (
-    <div
-      className="container animate-fade-in delay-200"
-      style={{ textAlign: 'center', marginBottom: '3rem' }}
-    >
+  const LogoHeader = () => (
+    <div className="animate-fade-in" style={{ position: 'absolute', top: '2.5rem', width: '100%', textAlign: 'center', zIndex: 50 }}>
       <h1 
         className="text-mono" 
         style={{ 
           fontSize: '1rem', 
           letterSpacing: '0.2em', 
-          marginBottom: '1.5rem',
           background: 'linear-gradient(90deg, #d4ff47, #47ffd4)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -26,6 +22,14 @@ export function HomeClient() {
       >
         Copify
       </h1>
+    </div>
+  );
+
+  const Hero = () => (
+    <div
+      className="container animate-fade-in delay-200"
+      style={{ textAlign: 'center', marginBottom: '3rem' }}
+    >
       <h2 className="heading-editorial">
         Move text between devices.
         <br />
@@ -38,6 +42,7 @@ export function HomeClient() {
     <>
       {/* ── DESKTOP LAYOUT (Unchanged) ── */}
       <div className="desktop-only" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <LogoHeader />
         <Hero />
         <div
           className="container animate-fade-in delay-300"
@@ -64,6 +69,7 @@ export function HomeClient() {
           width: '100%',
         }}
       >
+        <LogoHeader />
         {mobileView === 'home' && (
           <div
             style={{
