@@ -34,7 +34,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* Lock scrolling on desktop ONLY to preserve existing behavior */
@@ -75,7 +75,7 @@ body {
 .main-layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .container {
