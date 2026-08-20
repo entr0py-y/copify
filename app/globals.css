@@ -50,9 +50,9 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  /* Vignette */
   background:
-    radial-gradient(ellipse at 50% 0%,   rgba(255,255,255,0.018) 0%, transparent 60%),
+    /* Curved white ambient light bleed from the top edge */
+    radial-gradient(ellipse 100% 40% at 50% -10%, rgba(255, 255, 255, 0.12) 0%, transparent 100%),
     radial-gradient(ellipse at 0%   60%,  rgba(255,255,255,0.010) 0%, transparent 50%),
     radial-gradient(ellipse at 100% 40%,  rgba(255,255,255,0.008) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.6) 0%, transparent 70%),
