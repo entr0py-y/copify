@@ -1,69 +1,65 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+export const dynamic = 'force-dynamic';
+import { SendSection } from '@/components/SendSection';
+import { ReceiveSection } from '@/components/ReceiveSection';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="main-layout">
+      <main
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '8rem 0 0',
+        }}
+      >
+        {/* Hero */}
+        <div
+          className="container animate-fade-in delay-200"
+          style={{ textAlign: 'center', marginBottom: '3rem' }}
+        >
+          <h2 className="heading-editorial">
+            Move text between devices.
+            <br />
+            <span style={{ color: 'var(--accent-dim)' }}>Instantly.</span>
+          </h2>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Cards */}
+        <div
+          className="container animate-fade-in delay-300"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '1.5rem',
+            alignItems: 'stretch',
+          }}
+        >
+          <SendSection />
+          <ReceiveSection />
         </div>
       </main>
+
+      <footer
+        className="animate-fade-in delay-400"
+        style={{
+          padding: '1.5rem',
+          textAlign: 'center',
+        }}
+      >
+        <p
+          className="text-mono"
+          style={{
+            fontSize: '0.65rem',
+            letterSpacing: '0.22em',
+            color: 'rgba(255,255,255,0.18)',
+            textTransform: 'uppercase',
+          }}
+        >
+          No Login Required.
+        </p>
+      </footer>
     </div>
   );
 }
