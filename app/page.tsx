@@ -10,8 +10,6 @@ export default function Home() {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          // Increased top padding to prevent lamp overlap on mobile
-          padding: '12rem 0 0',
         }}
       >
         {/* Hero */}
